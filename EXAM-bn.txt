@@ -1,0 +1,213 @@
+# Git ও GitHub দক্ষতা পরীক্ষা
+
+**Rainbow IT — অভ্যন্তরীণ মূল্যায়ন**
+**সময়:** ৯০ মিনিট
+**তারিখ:** ২২ এপ্রিল, ২০২৬
+
+---
+
+## নিয়মাবলী
+
+- **সরাসরি `main` ব্রাঞ্চে push করা যাবে না।** `main` এ যেকোনো পরিবর্তন GitHub-এ Pull Request এর মাধ্যমে করতে হবে।
+- সবসময় **conventional commit message** ব্যবহার করতে হবে।
+- প্রতিটি commit হবে **atomic** — একটি commit এ একটি মাত্র লজিক্যাল পরিবর্তন।
+- সঠিক **branch naming convention** অনুসরণ করতে হবে: উপযুক্ত prefix এবং বর্ণনামূলক নাম দিতে হবে।
+- ফাইল **আলাদা আলাদা ভাবে stage** করতে হবে। `git add .` ব্যবহার করা যাবে না।
+
+---
+
+## Task 0 — Command Log (বাধ্যতামূলক, চলমান)
+
+git এর কাজ শুরু করার আগে প্রজেক্টের রুটে `COMMANDS.md` নামে একটি ফাইল তৈরি করো।
+
+পুরো পরীক্ষার সময় তুমি যেসব **git command** চালাবে সেগুলো ক্রমানুসারে এই ফাইলে লিখে রাখবে — প্রতি লাইনে একটি command, চাইলে ছোট মন্তব্য দিয়ে কেন চালিয়েছো তা বোঝাতে পারো।
+
+**COMMANDS.md এর নিয়ম:**
+
+- এই ফাইলটি **কখনোই commit করা যাবে না**। এটি সবসময় untracked অবস্থায় থাকবে।
+- পরীক্ষা শেষে এই ফাইলটি Slack-এ পরীক্ষকের কাছে জমা দিতে হবে।
+
+*এই task বাধ্যতামূলক কিন্তু সরাসরি নম্বর নেই। তবে যদি `COMMANDS.md` commit হয়ে যায় বা অনুপস্থিত থাকে, "Selective staging" থেকে নম্বর কাটা যাবে।*
+
+---
+
+## Task 1 — প্রজেক্ট সেটআপ
+
+১. পরীক্ষক যে URL দিয়েছেন সেটি দিয়ে repo clone করো।
+২. প্রজেক্ট directory তে ঢোকো।
+৩. নিশ্চিত করো যে তুমি `main` branch এ আছো।
+৪. `index.html` ব্রাউজারে খুলে calculator পেজটি ঠিকভাবে লোড হচ্ছে কিনা যাচাই করো।
+
+*এই task এ কোনো নম্বর নেই। শুধুই সেটআপ।*
+
+---
+
+## Task 2 — Feature: Header Title ও Background Color পরিবর্তন
+
+১. `main` থেকে একটি উপযুক্ত নামের branch তৈরি করো এবং সেই branch এ যাও।
+২. `index.html` এ nav title **"Rainbow IT - Calculator"** থেকে **"Rainbow IT - Smart Calculator"** এ পরিবর্তন করো।
+৩. একটি সঠিক conventional commit message দিয়ে এই পরিবর্তন commit করো।
+৪. `style.css` এ navbar এর background color `#333` থেকে `#1e88e5` এ পরিবর্তন করো।
+৫. আলাদাভাবে conventional message দিয়ে এটি commit করো।
+
+> এই দুটি অবশ্যই **আলাদা দুটি commit** হতে হবে — একটি HTML পরিবর্তনের জন্য, একটি CSS পরিবর্তনের জন্য।
+
+এই branch এর জন্য এখনই PR খুলো না। Task 4 এ আবার এখানে ফিরে আসবে।
+
+---
+
+## Task 3 — Feature: নতুন Operation যোগ করা (modulo)
+
+১. `main` এ ফিরে যাও।
+২. `main` থেকে একটি উপযুক্ত নামের branch তৈরি করো এবং সেই branch এ যাও।
+৩. `app.js` এর `operations` object এ `modulo: (a, b) => a % b` যোগ করো।
+৪. সঠিক conventional commit message দিয়ে commit করো।
+৫. `index.html` এ `#operation` `<select>` এর ভেতরে নতুন `<option value="modulo">modulo</option>` যোগ করো।
+৬. এটি **আলাদাভাবে** সঠিক conventional message দিয়ে commit করো।
+৭. branch টি remote এ push করো।
+৮. GitHub এ `main` এ Pull Request খুলো।
+৯. PR টি merge করো — **merge commit** তৈরি হতে হবে (squash বা rebase merge নয়)।
+
+> `app.js` এবং `index.html` এর পরিবর্তন **আলাদা দুটি commit** হতে হবে।
+
+---
+
+## Task 4 — Rebase Workflow
+
+১. Task 2 এ তৈরি করা branch এ যাও।
+২. আপডেটেড `main` (যাতে Task 3 এর modulo merge অন্তর্ভুক্ত) এর উপর rebase করো। Rebase শেষে তোমার Task 2 এর commit গুলো সর্বশেষ `main` এর উপরে বসবে।
+৩. branch টি remote এ push করো (history পরিবর্তন হওয়ার কারণে `--force-with-lease` গ্রহণযোগ্য)।
+৪. GitHub এ `main` এ Pull Request খুলে merge করো।
+
+---
+
+## Task 5 — Merge Conflict Resolve
+
+repo তে আগে থেকেই `feature/update-header-test` নামে একটি branch আছে। এই branch ও Task 2 এ তোমার পরিবর্তিত nav title এবং navbar color পরিবর্তন করে — ফলে overlap হবে।
+
+এই branch থেকে সরাসরি `main` এ PR খুলতে গেলে GitHub বলবে যে **automatic merge সম্ভব নয়**। প্রথমে local এ conflict resolve করতে হবে।
+
+১. Local এ `feature/update-header-test` branch checkout করো।
+২. এই branch এ `main` merge করো।
+৩. Merge conflict আসবে — এটা প্রত্যাশিত। Resolve করো:
+  - nav title এর জন্য: **তোমার** Task 2 এর version রাখো (`Rainbow IT - Smart Calculator`)।
+  - navbar color এর জন্য: `feature/update-header-test` এর version রাখো (`#2c3e50`)।
+৪. Resolve করা ফাইল গুলো stage করে সঠিক message দিয়ে merge commit করো।
+৫. আপডেট হওয়া branch টি remote এ push করো।
+৬. GitHub এ `main` এ Pull Request খুলে merge করো।
+
+---
+
+## Task 6 — Bug ঠিক করা
+
+একজন ইউজার রিপোর্ট করেছেন যে calculator এর **subtract** operation ভুল ফলাফল দিচ্ছে — যেমন `5 - 3` দিলে `2` এর বদলে `8` আসছে। এই bug খুঁজে বের করে ঠিক করা তোমার কাজ।
+
+১. `main` এ যাও এবং সর্বশেষ পরিবর্তন pull করো।
+২. `main` থেকে একটি উপযুক্ত নামের bugfix branch তৈরি করো।
+৩. `app.js` এ bug টি খুঁজে বের করো। `subtract` function এখন দুটি সংখ্যা বিয়োগের বদলে যোগ করছে। এটি ঠিক করো।
+৪. সঠিক conventional commit message দিয়ে তোমার সমাধান commit করো।
+৫. branch টি remote এ push করো।
+৬. GitHub এ `main` এ Pull Request খুলে merge করো।
+
+---
+
+## Task 7 — Documentation
+
+১. `main` এ যাও এবং সর্বশেষ পরিবর্তন pull করো।
+২. `main` থেকে একটি উপযুক্ত নামের branch তৈরি করো।
+৩. নিচের তথ্য সহ একটি `README.md` ফাইল তৈরি করো:
+  - প্রজেক্টের নাম: **Rainbow IT - Calculator**
+  - প্রজেক্টের এক লাইনের বর্ণনা।
+৪. সঠিক conventional commit message দিয়ে commit করো।
+৫. branch টি remote এ push করো।
+৬. GitHub এ `main` এ Pull Request খুলে merge করো।
+
+---
+
+## জমা দেওয়া
+
+কাজ শেষ হলে:
+
+১. graph সহ পূর্ণ git log দেখার command চালিয়ে স্ক্রিনশট নাও।
+২. তোমার `COMMANDS.md` ফাইলটি Slack এ জমা দাও।
+৩. পরীক্ষককে জানাও যে তুমি শেষ করেছো। পরীক্ষক GitHub এ তোমার PR গুলো রিভিউ করবেন।
+
+---
+
+## নম্বর বণ্টন (Mark Scheme)
+
+প্রতিটি স্কোর করা subtask এর জন্য **১ নম্বর**। যদি subtask চেষ্টা করা হয়েছে কিন্তু পুরোপুরি শর্ত পূরণ হয়নি, তখন **০.৫ নম্বর** দেওয়া হয় (প্রতিটি সারিতে partial credit কলাম দেখো)। শুধু প্রকৃত git / workflow / code subtask গুলোর উপর নম্বর দেওয়া হয় — `cd` করা, ব্রাউজারে ফাইল খোলা, বা `main` এ আছো কিনা যাচাই করার মতো সাধারণ কাজের জন্য নম্বর নেই।
+
+### Task 2 — Header ও Background (৩ নম্বর)
+
+| # | স্কোরযোগ্য subtask | ১ নম্বর (পূর্ণ) | ০.৫ নম্বর (আংশিক) |
+|---|----|----|----|
+| ২.১ | `main` থেকে branch তৈরি | বর্ণনামূলক নাম এবং সঠিক prefix সহ `main` থেকে branch | branch তৈরি কিন্তু prefix নেই, বা ভুল base থেকে করা |
+| ২.২ | HTML nav-title পরিবর্তন commit | title `Rainbow IT - Smart Calculator` এ পরিবর্তিত এবং আলাদা conventional message সহ commit | পরিবর্তন সঠিক কিন্তু message conventional নয়, অথবা CSS পরিবর্তনের সাথে এক commit এ |
+| ২.৩ | CSS navbar background পরিবর্তন আলাদা commit | navbar background `#1e88e5` এ পরিবর্তিত এবং **আলাদা** commit এ conventional message সহ | পরিবর্তন সঠিক কিন্তু message conventional নয়, বা HTML commit এর সাথে amend |
+
+### Task 3 — Modulo Operation যোগ (৫ নম্বর)
+
+| # | স্কোরযোগ্য subtask | ১ নম্বর | ০.৫ নম্বর |
+|---|----|----|----|
+| ৩.১ | `main` থেকে branch তৈরি | সর্বশেষ `main` থেকে বর্ণনামূলক নাম ও সঠিক prefix সহ | branch আছে কিন্তু prefix নেই, বা ভুল base থেকে |
+| ৩.২ | `app.js` modulo entry commit | `operations` এ `modulo: (a, b) => a % b` যোগ এবং আলাদা conventional message সহ commit | কোড সঠিক কিন্তু message conventional নয়, বা HTML পরিবর্তনের সাথে এক commit এ |
+| ৩.৩ | `index.html` modulo option আলাদা commit | `<option value="modulo">modulo</option>` যোগ এবং আলাদা conventional message সহ commit | option যোগ কিন্তু `app.js` এর সাথে এক commit এ, বা message conventional নয় |
+| ৩.৪ | `main` এ PR খোলা | feature branch থেকে `main` এ GitHub এ PR খোলা | ভুল base বা target নিয়ে PR খোলা |
+| ৩.৫ | merge commit দিয়ে merge | **Create a merge commit** strategy তে merge (history তে merge commit দৃশ্যমান) | merge হয়েছে কিন্তু squash বা rebase strategy তে |
+
+### Task 4 — Rebase Workflow (৩ নম্বর)
+
+| # | স্কোরযোগ্য subtask | ১ নম্বর | ০.৫ নম্বর |
+|---|----|----|----|
+| ৪.১ | Task 2 branch আপডেটেড `main` এর উপর rebase | পরিষ্কার `git rebase main`; Task 2 commit গুলো modulo merge এর উপরে; linear history | rebase চেষ্টা কিন্তু conflict unresolved, বা আগে `main` pull করা হয়নি |
+| ৪.২ | Rebased branch remote এ push | history পুনর্লিখনের পর `--force-with-lease` দিয়ে push | plain `--force` দিয়ে push, বা rebase এর বদলে merge ব্যবহার |
+| ৪.৩ | PR খোলা এবং `main` এ merge | rebased branch থেকে PR খোলা এবং `main` এ merge | PR খোলা কিন্তু অপ্রত্যাশিত strategy, বা PR ছাড়াই সরাসরি merge |
+
+### Task 5 — Merge Conflict Resolve (৫ নম্বর)
+
+| # | স্কোরযোগ্য subtask | ১ নম্বর | ০.৫ নম্বর |
+|---|----|----|----|
+| ৫.১ | `feature/update-header-test` এ `main` merge | feature branch থেকে `git merge main` চালানো | ভুল দিক থেকে চেষ্টা (feature branch কে local এ `main` এ merge) |
+| ৫.২ | nav title conflict সঠিকভাবে resolve | `Rainbow IT - Smart Calculator` রাখা (তোমার Task 2 version) | পুরোনো বা হাতে লেখা ভিন্ন title রাখা |
+| ৫.৩ | navbar color conflict সঠিকভাবে resolve | `feature/update-header-test` এর `#2c3e50` রাখা | `#333` বা অন্য কোনো color রাখা |
+| ৫.৪ | সঠিক message সহ merge commit | conventional / পরিষ্কার merge message সহ merge commit | merge হয়েছে কিন্তু default বা non-conventional message |
+| ৫.৫ | PR খোলা এবং `main` এ merge | পরিষ্কারভাবে PR খোলা ও merge (GitHub এ conflict নেই) | PR খোলা কিন্তু GitHub এখনো conflict রিপোর্ট করছে, বা ভুল strategy তে merge |
+
+### Task 6 — Subtract Bug ঠিক করা (৪ নম্বর)
+
+| # | স্কোরযোগ্য subtask | ১ নম্বর | ০.৫ নম্বর |
+|---|----|----|----|
+| ৬.১ | `main` থেকে bugfix branch | সর্বশেষ `main` থেকে বর্ণনামূলক নাম ও সঠিক prefix সহ | নাম বর্ণনামূলক কিন্তু সঠিক prefix নেই |
+| ৬.২ | `app.js` এ bug সঠিকভাবে ঠিক | `subtract: (a, b) => a - b` (operation এখন সঠিক ফলাফল দিচ্ছে) | bug খুঁজে পেয়েছে কিন্তু ভুল সমাধান (যেমন operand swap, বা ভুল function এ পরিবর্তন) |
+| ৬.৩ | Fix এর জন্য conventional commit | Message conventional format এ | bug ঠিক হয়েছে কিন্তু message conventional নয় |
+| ৬.৪ | PR খোলা এবং `main` এ merge | bugfix branch থেকে PR খোলা এবং `main` এ merge | PR খোলা কিন্তু স্পষ্টভাবে ভুল strategy তে merge, বা push হলেও PR নেই |
+
+### Task 7 — Documentation (৪ নম্বর)
+
+| # | স্কোরযোগ্য subtask | ১ নম্বর | ০.৫ নম্বর |
+|---|----|----|----|
+| ৭.১ | `main` থেকে docs branch | সর্বশেষ `main` থেকে বর্ণনামূলক নাম ও সঠিক prefix সহ | নাম বর্ণনামূলক কিন্তু prefix নেই |
+| ৭.২ | প্রয়োজনীয় content সহ `README.md` তৈরি | ফাইলে প্রজেক্টের নাম `Rainbow IT - Calculator` এবং এক লাইনের বর্ণনা আছে | ফাইল তৈরি কিন্তু নাম বা বর্ণনা অনুপস্থিত |
+| ৭.৩ | Docs এর জন্য conventional commit | Conventional format এ commit | ফাইল commit হয়েছে কিন্তু message conventional নয় |
+| ৭.৪ | PR খোলা এবং `main` এ merge | docs branch থেকে PR খোলা এবং `main` এ merge | PR খোলা কিন্তু merge হয়নি, বা PR ছাড়াই সরাসরি merge |
+
+### সার্বিক কর্তন (সব task এ প্রযোজ্য)
+
+- **যেকোনো সময় `COMMANDS.md` commit হয়ে গেলে** — মোট থেকে ১ নম্বর কাটা।
+- **`main` এ সরাসরি push** — মোট থেকে ২ নম্বর কাটা।
+- **`git add .` ব্যবহার (যা `COMMANDS.md` থেকে যাচাই করা যায়)** — মোট থেকে ১ নম্বর কাটা।
+
+### মোট
+
+| Task | নম্বর |
+|------|-------|
+| Task 2 | ৩ |
+| Task 3 | ৫ |
+| Task 4 | ৩ |
+| Task 5 | ৫ |
+| Task 6 | ৪ |
+| Task 7 | ৪ |
+| **মোট** | **২৪** |
+
+**শুভকামনা!**
